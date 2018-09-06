@@ -1,14 +1,14 @@
-import _ from "lodash";
+import _ from 'lodash';
 
 const isNilOrEmpty = _.overSome([_.isNil, _.isEmpty]);
 
 const defaultOptions = {
-  prefix: ""
+  prefix: ''
 };
 
 export default (types, options = {}) => {
   if (isNilOrEmpty(types)) {
-    throw new Error("valid types are required");
+    throw new Error('valid types are required');
   }
 
   const { prefix } = _.merge(defaultOptions, options);

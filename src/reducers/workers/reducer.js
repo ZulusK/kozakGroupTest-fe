@@ -1,5 +1,5 @@
-import createReducer from "/services/helpers/createReducer";
-import Types from "./types";
+import createReducer from '../../services/helpers/createReducer';
+import Types from './types';
 
 const initialState = {
   products: []

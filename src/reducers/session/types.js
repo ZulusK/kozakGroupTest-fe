@@ -1,4 +1,4 @@
-import createTypes from '/services/helpers/createTypes'
+import createTypes from '../../services/helpers/createTypes';
 
 export default createTypes(`
   SET_TOKENS
@@ -34,4 +34,4 @@ export default createTypes(`
   SET_USER_AVATAR_CANCEL
   SET_USER_AVATAR_FAIL
   SET_USER_AVATAR_SUCCESS
-`)
+`);
