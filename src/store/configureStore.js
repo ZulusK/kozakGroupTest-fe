@@ -3,15 +3,16 @@ import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import thunk from 'redux-thunk';
 import { name, version } from '../../package.json';
 import rootReducer from '../reducers';
-import { persistStore, persistReducer } from 'redux-persist';
+import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 const persistConfig = {
   key: 'root',
-  storage
+  storage,
+  whitelist: ['auth']
 };
 
-export default function configureStore(initialState, helpersConfig) {
+export default function configureStore(initialState) {
   const persistedReducer = persistReducer(persistConfig, rootReducer);
   const middleware = [thunk];
   const composeEnhancers = composeWithDevTools({

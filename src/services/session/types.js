@@ -1,4 +1,3 @@
-import Types from './types';
 import createTypes from '../../services/helpers/createTypes';
 
 export default createTypes(`

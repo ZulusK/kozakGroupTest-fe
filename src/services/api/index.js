@@ -1,8 +1,8 @@
-import ApiAddresses from './apiAddresses';
+import ApiAddresses from './urls';
 import axios from 'axios';
 import store from '../../store';
 import base64 from 'base-64';
-import { actions as authActions } from '../../reducers/auth';
+import { actions as authActions } from '../session';
 import { actions as notificationsActions } from '../../reducers/notifications';
 import { makeFormData } from '../helpers/dataBuilder';
 
