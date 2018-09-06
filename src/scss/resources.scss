@@ -1,0 +1,145 @@
+//////////
+// COLORS
+//////////
+$colorPrimaryDark: #2a2a2a;
+$colorPrimaryMedium: #333;
+$colorPrimaryLight: #f5f5f5;
+$colorSecondary: #d9b368;
+$colorSecondaryDark: #cc9453;
+$colorWhite: #fff;
+$colorGray: #575757;
+$textDarkColor: #474747;
+
+$shadowPrimary: 0 0.2rem 1rem 0 $colorPrimaryDark;
+$shadowPrimaryLight: 0 0.2rem 1rem 0 #aaa;
+$shadowSecondary: 0 0.2rem 1rem 0 $colorSecondary;
+$shadowBlack: 0 0.2rem 1rem 0 #1d1d1d;
+
+$textRegularSize: 1.3rem;
+$textSmallerSize: 1.25rem;
+$sectionHeaderSize: 2rem;
+$sectionPadding: 5.25rem 0;
+
+$thinGrayBorder: 1px solid $colorGray;
+
+@mixin bgCoverFixedCenter {
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
+
+@mixin roundAngles {
+  border-radius: 8px;
+}
+
+@mixin sectionHeader {
+  font-size: 2rem;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+@mixin flexWrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@mixin flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flexAlignCenter {
+  display: flex;
+  align-items: center;
+}
+
+@mixin flexBetween {
+  display: flex;
+  justify-content: space-between;
+}
+
+@mixin flexBetweenCenter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin flexAroundStretch {
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+}
+
+@mixin flexStart {
+  display: flex;
+  align-items: center;
+}
+
+@mixin background {
+  background-position: center;
+  background-size: cover;
+}
+
+@mixin fullSize {
+  width: 100%;
+  height: 100%;
+}
+
+@mixin tableEmptyBlock($side) {
+  content: "";
+  background-color: $colorGray;
+  position: absolute;
+  top: 0;
+  width: 2rem;
+  height: 100%;
+  @if $side == right {
+    right: -2rem;
+  }
+  @if $side == left {
+    left: -2rem;
+  }
+}
+
+@mixin arrow($degree) {
+  width: 1rem;
+  height: 1rem;
+  border-top: 3px solid #fff;
+  border-right: 3px solid #fff;
+  transform: rotate($degree);
+}
+///////////////////////
+// MEDIA QUERY MANAGER
+///////////////////////
+@mixin respond($breakpoint) {
+  @if $breakpoint == xs {
+    @media only screen and (max-width: 550px) {
+      @content;
+    }
+  }
+  @if $breakpoint == sm {
+    @media only screen and (max-width: 768px) {
+      @content;
+    }
+  }
+  @if $breakpoint == md {
+    @media only screen and (max-width: 1024px) {
+      @content;
+    }
+  }
+  @if $breakpoint == lg {
+    @media only screen and (max-width: 1440px) {
+      @content;
+    }
+  }
+  @if $breakpoint == xl {
+    @media only screen and (max-width: 1920px) {
+      @content;
+    }
+  }
+  @if $breakpoint == xxl {
+    @media only screen and (min-width: 1921px) {
+      @content;
+    }
+  }
+}
