@@ -14,3 +14,5 @@ export const setNewAccessToken = token => ({
   type: Types.SET_NEW_ACCESS_TOKEN,
   payload: { token }
 });
+
+export const signin = ({ email, password }) => ({});
