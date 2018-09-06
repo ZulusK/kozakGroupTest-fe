@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import style from './styles.scss';
-
+import withMainLayout from '../../hoc/withMainLayout';
 class Registration extends Component {
   render() {
     return (
@@ -11,4 +11,4 @@ class Registration extends Component {
   }
 }
 
-export default Registration;
+export default withMainLayout(Registration);

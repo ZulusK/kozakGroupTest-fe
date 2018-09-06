@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './styles.scss';
-
+import withMainLayout from '../../hoc/withMainLayout';
 class WorkerCreation extends Component {
   render() {
     return (
@@ -11,4 +11,4 @@ class WorkerCreation extends Component {
   }
 }
 
-export default WorkerCreation;
+export default withMainLayout(WorkerCreation);

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import style from './styles.scss';
+import withMainLayout from '../../hoc/withMainLayout';
 
 class WorkerView extends Component {
   render() {
@@ -11,4 +12,4 @@ class WorkerView extends Component {
   }
 }
 
-export default WorkerView;
+export default withMainLayout(WorkerView);
