@@ -1,13 +1,12 @@
 import ApiAddresses from './apiAddresses';
-import base64 from 'base-64';
 import axios from 'axios';
-import store from '/store';
-import { actions as sessionActions } from '/services/session';
-import { actions as notificationsActions } from '/reducers/notifications';
-import * as storage from '/services/helpers/dataStorage';
-import { makeFormData } from '/services/helpers/formatBusinessData';
+import store from '../../store';
+import base64 from 'base-64';
+import { actions as authActions } from '../../reducers/auth';
+import { actions as notificationsActions } from '../../reducers/notifications';
+import { makeFormData } from '../helpers/dataBuilder';
 
-const getTokens = () => store.getState().session.tokens;
+const getTokens = () => store.getState().auth.tokens;
 
 const validateTokens = tokens => {
   if (tokens.access !== null && tokens.refresh !== null) {
@@ -17,8 +16,7 @@ const validateTokens = tokens => {
       if (tokens.refresh.expiredIn < Date.now()) {
         return getAccessToken(tokens.refresh.token)
           .then(response => {
-            storage.saveAccessToken(response.data);
-            store.dispatch(sessionActions.setNewAccessToken(response.data));
+            store.dispatch(authActions.setNewAccessToken(response.data));
             return response.data.token;
           })
           .catch(error => {
@@ -94,13 +92,9 @@ export const getAccessToken = refreshToken =>
     headers: { Authorization: `Bearer ${refreshToken}` },
     method: 'GET'
   });
+
 // WORKERS
 export const getAllWorkers = () => axios.get(ApiAddresses.GET_WORKERS);
-
-export const getUserWorkers = userId =>
-  axios({
-    url: ApiAddresses.GET_USER_WORKERS(userId)
-  });
 
 export const createWorker = data =>
   authRequest(ApiAddresses.POST_WORKER, {
@@ -123,6 +117,3 @@ export const updateWorker = (workerId, data) =>
     data,
     method: 'PUT'
   });
-
-export const getWorkerOrders = workerId =>
-  authRequest(ApiAddresses.GET_WORKER_ORDERS(workerId));

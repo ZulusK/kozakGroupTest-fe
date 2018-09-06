@@ -1,6 +1,6 @@
-import { API_URL } from "/services/config";
+import { API_URL } from '../config';
 
-const API_PATH = "/api";
+const API_PATH = '/api';
 
 export default {
   USERS_SIGNUP: `${API_URL}${API_PATH}/users`,

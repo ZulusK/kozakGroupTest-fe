@@ -1,3 +1,4 @@
+import Types from './types';
 import createTypes from '../../services/helpers/createTypes';
 
 export default createTypes(`
@@ -26,12 +27,4 @@ export default createTypes(`
   SIGN_IN_FAIL
 
   REMOVE_SESSION
-
-  UPDATE_USER_SUCCESS
-
-  CHANGE_PASSWORD_SUCCESS
-
-  SET_USER_AVATAR_CANCEL
-  SET_USER_AVATAR_FAIL
-  SET_USER_AVATAR_SUCCESS
 `);

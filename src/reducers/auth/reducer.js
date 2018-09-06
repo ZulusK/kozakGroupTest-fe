@@ -2,9 +2,11 @@ import createReducer from '../../services/helpers/createReducer';
 import Types from './types';
 
 const initialState = {
-  imageUrl: '',
-  imageBase64: '',
-  user: null,
+  user: {
+    email: null,
+    id: null,
+    username: null
+  },
   tokens: {
     access: null,
     refresh: null
@@ -39,10 +41,5 @@ export default createReducer(initialState, {
     tokens: payload.tokens
   }),
 
-  [Types.REMOVE_SESSION]: state => ({ ...initialState }),
-
-  [Types.CHANGE_PASSWORD_SUCCESS]: (state, { payload }) => ({
-    ...state,
-    user: payload.user
-  })
+  [Types.REMOVE_SESSION]: state => ({ ...initialState })
 });
