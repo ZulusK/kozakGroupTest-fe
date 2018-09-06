@@ -6,65 +6,7 @@
   box-sizing: inherit;
 }
 
-html {
-  font-size: 62.5%;
-
-  @include respond(xxl) {
-    font-size: 105%;
-  }
-
-  @include respond(xl) {
-    font-size: 100%; // 1rem = 16px
-  }
-
-  @include respond(lg) {
-    font-size: 87.5%; // 1rem = 14px
-  }
-
-  @include respond(md) {
-    font-size: 75%;
-  }
-
-  @include respond(sm) {
-    font-size: 62.5%;
-  }
-}
-
 body {
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
-}
-
-::selection {
-  background-color: $colorSecondary;
-  color: $textDarkColor;
-}
-
-:global .textLine {
-  display: block;
-}
-
-:global .textBold {
-  font-weight: 900;
-}
-
-:global .textBlack {
-  color: $colorPrimaryDark;
-}
-
-:global .textGold {
-  color: $colorSecondary;
-}
-
-:global .textWhite {
-  color: $colorWhite;
-}
-
-:global .textItalic {
-  font-style: italic;
-  font-weight: normal;
-}
-
-:global .textSmall {
-  font-size: 0.75rem;
 }

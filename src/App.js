@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
-import './App.scss';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
+// import './scss/App.scss';
+import routes from './routes';
+import RouteWithSubRoutes from './components/RouteWithSubRoutes';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <Router>
+        <Switch>
+          {routes.map((route, i) => (
+            <RouteWithSubRoutes key={i} {...route} />
+          ))}
+        </Switch>
+      </Router>
     );
   }
 }
