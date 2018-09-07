@@ -5,32 +5,26 @@ import {
   selectors as notificationsSelectors,
   actions as notificationsActions
 } from '../reducers/notifications';
-import 'react-notifications/lib/notifications.css';
-import {
-  NotificationContainer,
-  NotificationManager
-} from 'react-notifications';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/scss/main.scss';
 
 const withNotifications = WrappedComponent => {
-  return class extends Component {
+  return class WithNotifications extends Component {
     state = {
       isLoading: false
     };
     createNotification = (type, msg) => {
-      if (!msg) {return;}
+      if (!msg) {
+        return;
+      }
+      console.log(type, msg);
       switch (type) {
-        case 'info':
-          NotificationManager.info(msg, 'Info', 3000);
-          break;
-        case 'success':
-          NotificationManager.success(msg, 'Success', 3000);
-          break;
-        case 'warning':
-          NotificationManager.warning(msg, 'Warning', 3000);
-          break;
         case 'error':
+        case 'info':
+          toast.error(msg, {
+            position: toast.POSITION.TOP_CENTER
+          });
         default:
-          NotificationManager.error(msg, 'Error!', 5000);
           break;
       }
     };
@@ -51,13 +45,17 @@ const withNotifications = WrappedComponent => {
     _onToggleLoadingState = () => {
       this.setState({ isLoading: this.props.loading });
     };
-
+    componentDidMount = () => {
+      this.createNotification('info', 'test');
+      this.createNotification('info', 'test');
+      this.createNotification('info', 'test');
+      this.createNotification('info', 'test');
+    };
     render() {
       return (
         <div>
-          <h1>{this.state.isLoading}</h1>
+          <ToastContainer autoClose={2000} />
           <WrappedComponent {...this.props} />
-          <NotificationContainer />
         </div>
       );
     }
@@ -75,7 +73,7 @@ const mapDispatchToProps = dispatch => ({
   requestFail: error => dispatch(notificationsActions.requestFail(error))
 });
 
-const composedHoc = compose(
+let composedHoc = compose(
   connect(
     mapStateToProps,
     mapDispatchToProps
