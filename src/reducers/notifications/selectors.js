@@ -1,13 +1,13 @@
-import { createSelector } from 'reselect'
+import { createSelector } from 'reselect';
 
-const notifications = state => state.notifications
+const notifications = state => state.notifications;
 
 export const notification = createSelector(
   notifications,
-  notificationsState => notificationsState.notification,
-)
+  notificationsState => notificationsState.notification
+);
 
 export const loading = createSelector(
   notifications,
-  notificationsState => notificationsState.loading,
-)
+  notificationsState => notificationsState.loading
+);

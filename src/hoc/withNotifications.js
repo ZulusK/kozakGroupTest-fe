@@ -5,6 +5,7 @@ import {
   selectors as notificationsSelectors,
   actions as notificationsActions
 } from '../reducers/notifications';
+import 'react-notifications/lib/notifications.css';
 import {
   NotificationContainer,
   NotificationManager
@@ -12,31 +13,36 @@ import {
 
 const withNotifications = WrappedComponent => {
   return class extends Component {
-    createNotification = (type, msg) => {
-      return () => {
-        switch (type) {
-          case 'info':
-            NotificationManager.info(msg, 3000);
-            break;
-          case 'success':
-            NotificationManager.success(msg, 'Title here', 3000);
-            break;
-          case 'warning':
-            NotificationManager.warning(msg, 'Close after 3000ms', 3000);
-            break;
-          case 'error':
-            NotificationManager.error(msg, 'Click me!', 5000);
-            break;
-        }
-      };
-    };
     state = {
       isLoading: false
+    };
+    componentDidMount() {
+      this.createNotification('success', 'sss');
+    }
+    createNotification = (type, msg) => {
+      switch (type) {
+        case 'info':
+          NotificationManager.info(msg, 'Info', 3000);
+          break;
+        case 'success':
+          NotificationManager.success(msg, 'Success', 3000);
+          break;
+        case 'warning':
+          NotificationManager.warning(msg, 'Warning', 3000);
+          break;
+        case 'error':
+        default:
+          NotificationManager.error(msg, 'Error!', 5000);
+          break;
+      }
     };
 
     componentDidUpdate(prevProps) {
       if (this.props.notification) {
-        this.createNotification('error', this.props.notification);
+        this.createNotification(
+          this.props.notification.type || 'error',
+          this.props.notification.message
+        );
       }
 
       if (this.props.loading !== prevProps.loading) {
@@ -51,8 +57,9 @@ const withNotifications = WrappedComponent => {
     render() {
       return (
         <div>
-          <NotificationContainer />
+          <h1>{this.state.isLoading}</h1>
           <WrappedComponent {...this.props} />
+          <NotificationContainer />
         </div>
       );
     }
