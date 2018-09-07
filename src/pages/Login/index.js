@@ -5,11 +5,10 @@ import { Field, reduxForm } from 'redux-form';
 import * as authSelectors from '../../reducers/auth/selectors';
 import * as authActions from '../../reducers/auth/actions';
 import { Redirect } from 'react-router-dom';
-import Hero from 'react-bulma-components/lib/components/hero';
-import Heading from 'react-bulma-components/lib/components/heading';
-import Container from 'react-bulma-components/lib/components/container';
-import Section from 'react-bulma-components/lib/components/section';
 import withMainLayout from '../../hoc/withMainLayout';
+import validation from '../../services/helpers/dataValidation';
+import FormInput from '../../components/FormInput';
+import Box from 'react-bulma-components/lib/components/box';
 
 class Login extends Component {
   render() {
@@ -17,18 +16,37 @@ class Login extends Component {
       return <Redirect to={{ pathname: '/' }} />;
     } else {
       return (
-        <Section>
-          <Hero color="primary">
-            <Hero.Body>
-              <Container>
-                <Heading>Hero title Primary</Heading>
-                <Heading subtitle size={3}>
-                  Subtitle
-                </Heading>
-              </Container>
-            </Hero.Body>
-          </Hero>
-        </Section>
+        <div className="container has-text-centered is-mobile">
+          <div className="column is-6 is-offset-3">
+            <h3 class="title has-text-grey">Login</h3>
+            <p class="subtitle has-text-grey">Please login to proceed.</p>
+            <Box>
+              <form>
+                <Field
+                  label="Email Address"
+                  name="email"
+                  placeholder="Email"
+                  component={FormInput}
+                  validate={validation.emailValidation}
+                />
+                <Field
+                  label="Password"
+                  name="password"
+                  placeholder="Password"
+                  type="Password"
+                  secure
+                  component={FormInput}
+                  validate={validation.passwordValidation}
+                />
+                <div class="field is-grouped">
+                  <div class="control">
+                    <a class="button is-link">Submit</a>
+                  </div>
+                </div>
+              </form>
+            </Box>
+          </div>
+        </div>
       );
     }
   }

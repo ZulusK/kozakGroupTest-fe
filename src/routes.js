@@ -15,7 +15,7 @@ export default [
     component: pages.Login
   },
   {
-    path: '/registration',
+    path: '/signup',
     component: pages.Registration
   },
   {

@@ -16,3 +16,4 @@ export const setNewAccessToken = token => ({
 });
 
 export const signin = ({ email, password }) => ({});
+export const signup = ({ username, email, password }) => ({});

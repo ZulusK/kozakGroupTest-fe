@@ -7,17 +7,17 @@ import PropTypes from 'prop-types';
 class HeaderButton extends Component {
   render() {
     return this.props.isShown ? (
-      <Navbar.Item>
-        <Link to={this.props.to}>{this.props.text}</Link>
+      <Navbar.Item renderAs="a" href={this.props.to}>
+        {this.props.text}
       </Navbar.Item>
     ) : (
       <span />
     );
   }
 }
-HeaderButton.PropTypes = {
-  to: PropTypes.string,
-  text: PropTypes.string,
+HeaderButton.propTypes = {
+  to: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
   isShown: PropTypes.bool
 };
 export default HeaderButton;

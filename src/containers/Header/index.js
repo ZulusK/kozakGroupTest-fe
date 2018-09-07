@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import style from './styles.scss';
 import * as authSelectors from '../../reducers/auth/selectors';
-import { Redirect } from 'react-router-dom';
-import Container from 'react-bulma-components/lib/components/container';
-import Content from 'react-bulma-components/lib/components/content';
-import Hero from 'react-bulma-components/lib/components/hero';
-import Button from 'react-bulma-components/lib/components/button';
 import Navbar from 'react-bulma-components/lib/components/navbar';
 import HeaderButton from '../../components/HeaderButton';
 
@@ -25,7 +20,7 @@ class Header extends Component {
               isShown={!this.props.isAuthenticated}
             />
             <HeaderButton
-              to="/register"
+              to="/signup"
               text="Signup"
               isShown={!this.props.isAuthenticated}
             />

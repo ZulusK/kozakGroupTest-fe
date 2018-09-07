@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import style from './styles.scss';
 import withMainLayout from '../../hoc/withMainLayout';
 import Hero from 'react-bulma-components/lib/components/hero';
 import Heading from 'react-bulma-components/lib/components/heading';
@@ -7,7 +6,6 @@ import Image from 'react-bulma-components/lib/components/image';
 import Card from 'react-bulma-components/lib/components/card';
 import Media from 'react-bulma-components/lib/components/media';
 import Content from 'react-bulma-components/lib/components/content';
-import Container from 'react-bulma-components/lib/components/container';
 
 class NotFound extends Component {
   render() {

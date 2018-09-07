@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import style from './styles.scss';
 import withMainLayout from '../../hoc/withMainLayout';
-
+import withAuthRequired from '../../hoc/withAuthRequired';
 class WorkerView extends Component {
   render() {
     return (
@@ -12,4 +12,4 @@ class WorkerView extends Component {
   }
 }
 
-export default withMainLayout(WorkerView);
+export default withAuthRequired(withMainLayout(WorkerView));
