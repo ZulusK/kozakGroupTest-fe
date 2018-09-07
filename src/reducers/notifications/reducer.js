@@ -22,13 +22,16 @@ export default createReducer(initialState, {
     },
     loading: false
   }),
-  [Types.REQUEST_FAIL]: (state, { payload }) => ({
-    ...state,
-    notification: {
-      ...payload.error,
-      type: 'error'
-    },
-    loading: false
-  }),
+  [Types.REQUEST_FAIL]: (state, { payload }) => {
+    console.log('here');
+    return {
+      ...state,
+      notification: {
+        ...payload.error,
+        type: 'error'
+      },
+      loading: false
+    };
+  },
   [Types.RESET_NOTIFICATION]: (state, { payload }) => ({ ...initialState })
 });

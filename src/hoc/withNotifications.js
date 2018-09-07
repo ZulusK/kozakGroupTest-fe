@@ -17,7 +17,6 @@ const withNotifications = WrappedComponent => {
       if (!msg) {
         return;
       }
-      console.log(type, msg);
       switch (type) {
         case 'error':
         case 'info':
@@ -30,7 +29,7 @@ const withNotifications = WrappedComponent => {
     };
 
     componentDidUpdate(prevProps) {
-      if (this.props.notification) {
+      if (this.props.notification !== prevProps.notification) {
         this.createNotification(
           this.props.notification.type || 'error',
           this.props.notification.message

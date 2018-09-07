@@ -18,7 +18,7 @@ class Login extends Component {
 
     return (
       <div className="container has-text-centered is-mobile">
-        <div className="column is-6-table is-offset-3-tablet is-4-desktop is-offset-4-desktop">
+        <div className="column is-6-tablet is-offset-3-tablet is-4-desktop is-offset-4-desktop">
           <h3 className="title has-text-grey">Login</h3>
           <p className="subtitle has-text-grey">Please login to proceed.</p>
           <div className="box">
