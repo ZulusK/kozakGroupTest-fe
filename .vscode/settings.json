@@ -1,0 +1,8 @@
+{
+  "files.exclude": {
+    "__error": "Not found",
+    "README.md": true,
+    "yarn.lock": true,
+    "yarn-error.log": true
+  }
+}
