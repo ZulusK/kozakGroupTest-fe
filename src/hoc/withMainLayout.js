@@ -7,14 +7,17 @@ const withMainLayout = WrappedComponent => {
   return class extends Component {
     render() {
       return (
-        <Hero color="white" size="fullheight">
+        <div>
           <Header />
-          <Hero.Body>
-            <Container>
-              <WrappedComponent {...this.props} />
-            </Container>
-          </Hero.Body>
-        </Hero>
+
+          <Hero color="white" size="fullheight">
+            <Hero.Body>
+              <Container>
+                <WrappedComponent {...this.props} />
+              </Container>
+            </Hero.Body>
+          </Hero>
+        </div>
       );
     }
   };

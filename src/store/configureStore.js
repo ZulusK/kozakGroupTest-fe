@@ -3,7 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import thunk from 'redux-thunk';
 import { name, version } from '../../package.json';
 import rootReducer from '../reducers';
-import { persistReducer } from 'redux-persist';
+import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 const persistConfig = {
@@ -28,6 +28,6 @@ export default function configureStore(initialState) {
       store.replaceReducer(require('../reducers').default)
     );
   }
-
+  persistStore(store);
   return store;
 }

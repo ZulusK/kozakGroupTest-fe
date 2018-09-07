@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
-// import style from './styles.scss';
-import { Link } from 'react-router-dom';
-import Navbar from 'react-bulma-components/lib/components/navbar';
 import PropTypes from 'prop-types';
 
 class HeaderButton extends Component {
   render() {
     return this.props.isShown ? (
-      <Navbar.Item renderAs="a" href={this.props.to}>
+      <a
+        className="navbar-item"
+        href={this.props.to}
+        onClick={this.props.handleClick}
+      >
         {this.props.text}
-      </Navbar.Item>
+      </a>
     ) : (
       <span />
     );
   }
 }
 HeaderButton.propTypes = {
-  to: PropTypes.string.isRequired,
+  to: PropTypes.string,
   text: PropTypes.string.isRequired,
+  handleClick: PropTypes.func,
   isShown: PropTypes.bool
 };
 export default HeaderButton;

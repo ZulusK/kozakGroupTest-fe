@@ -2,31 +2,38 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import style from './styles.scss';
 import * as authSelectors from '../../reducers/auth/selectors';
-import Navbar from 'react-bulma-components/lib/components/navbar';
+import * as authActions from '../../reducers/auth/actions';
 import HeaderButton from '../../components/HeaderButton';
 
 class Header extends Component {
   render() {
     return (
-      <Navbar>
-        <Navbar.Brand>
-          <Navbar.Item href="/">Home</Navbar.Item>
-        </Navbar.Brand>
-        <Navbar.Menu>
-          <Navbar.Container>
-            <HeaderButton
-              to="/login"
-              text="Login"
-              isShown={!this.props.isAuthenticated}
+      <nav className="navbar is-link is-fixed-top" role="navigation">
+        <div className="navbar-brand">
+          <div className="navbar-item">
+            <img
+              src="https://react-etc.net/files/2017-12/react-hexagon.png"
+              width="24"
             />
-            <HeaderButton
-              to="/signup"
-              text="Signup"
-              isShown={!this.props.isAuthenticated}
-            />
-          </Navbar.Container>
-        </Navbar.Menu>
-      </Navbar>
+          </div>
+          <HeaderButton to="/" text="Home" isShown />
+          <HeaderButton
+            to="/login"
+            text="Login"
+            isShown={!this.props.isAuthenticated}
+          />
+          <HeaderButton
+            to="/signup"
+            text="Signup"
+            isShown={!this.props.isAuthenticated}
+          />
+          <HeaderButton
+            text="logout"
+            handleClick={this.props.logout}
+            isShown={this.props.isAuthenticated}
+          />
+        </div>
+      </nav>
     );
   }
 }
@@ -36,7 +43,9 @@ const mapStateToProps = state => ({
   isAuthenticated: authSelectors.getIsAuthenticated(state)
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(authActions.logout())
+});
 
 export default connect(
   mapStateToProps,

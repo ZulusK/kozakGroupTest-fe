@@ -1,5 +1,7 @@
 import Types from './types';
+import * as notificationsActions from '../notifications/actions';
 import * as API from '../../services/api';
+import { makeFormData } from '../../services/helpers/dataBuilder';
 
 export const logout = () => dispatch => {
   dispatch({ type: Types.REMOVE_SESSION });
@@ -15,5 +17,47 @@ export const setNewAccessToken = token => ({
   payload: { token }
 });
 
-export const signin = ({ email, password }) => ({});
-export const signup = ({ username, email, password }) => ({});
+export const signin = userData => dispatch => {
+  userData.email = userData.email.toLowerCase();
+
+  dispatch({ type: Types.SIGN_IN_START });
+  dispatch(notificationsActions.requestStart());
+
+  API.signin(userData)
+    .then(response => {
+      dispatch({
+        type: Types.SIGN_IN_SUCCESS,
+        payload: {
+          user: response.data.user,
+          tokens: response.data.tokens
+        }
+      });
+      dispatch(notificationsActions.requestSuccess());
+    })
+    .catch(error => {
+      dispatch({ type: Types.SIGN_IN_FAIL });
+      dispatch(notificationsActions.requestFail(error));
+    });
+};
+
+export const signup = userData => dispatch => {
+  dispatch({ type: Types.SIGN_UP_START });
+  dispatch(notificationsActions.requestStart());
+
+  const formData = makeFormData(userData);
+  API.signup(formData)
+    .then(response => {
+      dispatch({
+        type: Types.SIGN_UP_SUCCESS,
+        payload: {
+          user: response.data.user,
+          tokens: response.data.tokens
+        }
+      });
+      dispatch(notificationsActions.requestSuccess());
+    })
+    .catch(error => {
+      dispatch({ type: Types.SIGN_UP_FAIL });
+      dispatch(notificationsActions.requestFail(error));
+    });
+};
