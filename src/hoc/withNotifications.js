@@ -16,10 +16,8 @@ const withNotifications = WrappedComponent => {
     state = {
       isLoading: false
     };
-    componentDidMount() {
-      this.createNotification('success', 'sss');
-    }
     createNotification = (type, msg) => {
+      if (!msg) {return;}
       switch (type) {
         case 'info':
           NotificationManager.info(msg, 'Info', 3000);

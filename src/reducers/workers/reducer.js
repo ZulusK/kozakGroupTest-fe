@@ -2,15 +2,21 @@ import createReducer from '../../services/helpers/createReducer';
 import Types from './types';
 
 const initialState = {
-  products: []
+  workers: [],
+  selectedWorker: null
 };
 
 export default createReducer(initialState, {
-  [Types.GET_PRODUCTS_SUCCESS]: (state, { payload }) => ({
+  [Types.GET_WORKERS_SUCCESS]: (state, { payload }) => ({
     ...state,
-    products: payload.products.map(product => ({
-      ...product,
-      quantity: 0
-    }))
+    workers: payload.workers
+  }),
+  [Types.SELECT_WORKER]: (state, { payload }) => ({
+    ...state,
+    selectedWorker: payload.worker
+  }),
+  [Types.RESET_SELECTED_WORKER]: (state, {}) => ({
+    ...state,
+    selectedWorker: null
   })
 });

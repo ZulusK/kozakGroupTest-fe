@@ -32,6 +32,11 @@ class Header extends Component {
             handleClick={this.props.logout}
             isShown={this.props.isAuthenticated}
           />
+          <HeaderButton
+            text="add worker"
+            to="/add-worker"
+            isShown={this.props.isAuthenticated}
+          />
         </div>
       </nav>
     );
