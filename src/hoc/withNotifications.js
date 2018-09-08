@@ -44,12 +44,6 @@ const withNotifications = WrappedComponent => {
     _onToggleLoadingState = () => {
       this.setState({ isLoading: this.props.loading });
     };
-    componentDidMount = () => {
-      this.createNotification('info', 'test');
-      this.createNotification('info', 'test');
-      this.createNotification('info', 'test');
-      this.createNotification('info', 'test');
-    };
     render() {
       return (
         <div>

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import * as authSelectors from '../../reducers/auth/selectors';
 import * as authActions from '../../reducers/auth/actions';
-import { Redirect } from 'react-router-dom';
 import withMainLayout from '../../hoc/withMainLayout';
 import validation from '../../services/helpers/dataValidation';
 import FormInput from '../../components/FormInput';

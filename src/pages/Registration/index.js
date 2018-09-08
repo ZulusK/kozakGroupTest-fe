@@ -6,7 +6,6 @@ import * as authActions from '../../reducers/auth/actions';
 import withMainLayout from '../../hoc/withMainLayout';
 import validation from '../../services/helpers/dataValidation';
 import FormInput from '../../components/FormInput';
-import withNotifications from '../../hoc/withNotifications';
 import withUnauthorizedRequired from '../../hoc/withUnauthorizedRequired';
 
 class Register extends Component {
@@ -77,6 +76,6 @@ export default connect(
   mapDispatchToProps
 )(
   reduxForm({ form: 'signup' })(
-    withMainLayout(withNotifications(withUnauthorizedRequired(Register)))
+    withMainLayout(withUnauthorizedRequired(Register))
   )
 );

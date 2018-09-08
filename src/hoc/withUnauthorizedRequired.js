@@ -10,7 +10,7 @@ const withUnauthorizedRequired = WrappedComponent => {
       if (!this.props.isAuthenticated) {
         return <WrappedComponent {...this.props} />;
       } else {
-        return <Redirect to={{ pathname: '/login' }} />;
+        return <Redirect to={{ pathname: '/' }} />;
       }
     }
   };

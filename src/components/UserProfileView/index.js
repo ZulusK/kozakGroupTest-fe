@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class HeaderButton extends Component {
+class UserProfileView extends Component {
   render() {
     return (
       <section className="hero is-info is-small is-bold">
@@ -18,7 +18,7 @@ class HeaderButton extends Component {
     );
   }
 }
-HeaderButton.propTypes = {
+UserProfileView.propTypes = {
   user: PropTypes.object.isRequired
 };
-export default HeaderButton;
+export default UserProfileView;

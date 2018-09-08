@@ -6,7 +6,6 @@ import * as workerActions from '../../reducers/workers/actions';
 import withMainLayout from '../../hoc/withMainLayout';
 import validation from '../../services/helpers/dataValidation';
 import FormInput from '../../components/FormInput';
-import withNotifications from '../../hoc/withNotifications';
 
 class WorkerCreation extends Component {
   _onSubmit = values => {
@@ -91,6 +90,6 @@ export default connect(
   mapDispatchToProps
 )(
   reduxForm({ form: 'createWorker' })(
-    withAuthRequired(withMainLayout(withNotifications(WorkerCreation)))
+    withAuthRequired(withMainLayout(WorkerCreation))
   )
 );
