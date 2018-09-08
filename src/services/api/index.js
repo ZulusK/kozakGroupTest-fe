@@ -94,7 +94,10 @@ export const getAccessToken = refreshToken =>
   });
 
 // WORKERS
-export const getAllWorkers = () => axios.get(ApiAddresses.GET_WORKERS);
+export const getAllWorkers = () =>
+  authRequest(ApiAddresses.GET_WORKERS, {
+    method: 'GET'
+  });
 
 export const createWorker = data =>
   authRequest(ApiAddresses.POST_WORKER, {

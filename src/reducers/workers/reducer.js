@@ -9,7 +9,7 @@ const initialState = {
 export default createReducer(initialState, {
   [Types.GET_WORKERS_SUCCESS]: (state, { payload }) => ({
     ...state,
-    workers: payload.workers
+    workers: payload.docs
   }),
   [Types.SELECT_WORKER]: (state, { payload }) => ({
     ...state,
