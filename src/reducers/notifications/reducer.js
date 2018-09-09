@@ -25,6 +25,10 @@ export default createReducer(initialState, {
   }),
   [Types.REQUEST_SUCCESS]: (state, { payload }) => ({
     ...state,
+    notification: {
+      message: payload.message || null,
+      type: 'success'
+    },
     loading: false
   }),
   [Types.REQUEST_FAIL]: (state, { payload }) => {

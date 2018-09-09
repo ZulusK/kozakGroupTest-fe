@@ -18,17 +18,30 @@ export const getAllWorkers = () => dispatch => {
     });
 };
 
+export const deleteWorker = workerId => dispatch => {
+  dispatch(notificationsActions.requestStart());
+
+  API.deleteWorker(workerId)
+    .then(() => {
+      dispatch(notificationsActions.requestSuccess('worker was deleted'));
+      dispatch(getAllWorkers());
+    })
+    .catch(error => {
+      dispatch(notificationsActions.requestFail(error));
+    });
+};
+
 export const createWorker = workerData => dispatch => {
   dispatch({ type: Types.WORKER_CREATION_START });
   dispatch(notificationsActions.requestStart());
 
-  const formData = makeFormData(workerData);
-  API.createWorker(formData)
+  // const formData = makeFormData(workerData);
+  API.createWorker(workerData)
     .then(response => {
       dispatch({
         type: Types.WORKER_CREATION_SUCCESS
       });
-      dispatch(notificationsActions.requestSuccess());
+      dispatch(notificationsActions.requestSuccess('worker was created'));
     })
     .catch(error => {
       dispatch({ type: Types.WORKER_CREATION_FAIL });

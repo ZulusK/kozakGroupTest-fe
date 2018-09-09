@@ -111,14 +111,9 @@ export const createWorker = data =>
     method: 'POST'
   });
 
-export const deleteWorker = (workerId, email, password) =>
-  axios({
-    url: ApiAddresses.DELETE_WORKER(workerId),
-    headers: {
-      Authorization: `Basic ${base64.encode(`${email}:${password}`)}`
-    },
-    method: 'PUT',
-    data: makeFormData({ isActive: false })
+export const deleteWorker = workerId =>
+  authRequest(ApiAddresses.DELETE_WORKER(workerId), {
+    method: 'DELETE'
   });
 
 export const updateWorker = (workerId, data) =>

@@ -18,6 +18,9 @@ class WorkerView extends Component {
   componentDidMount = () => {
     this.props.fetchWorkers();
   };
+  onRowDelete = worker => {
+    this.props.deleteWorker(worker.id);
+  };
   render() {
     return (
       <div>
@@ -29,7 +32,10 @@ class WorkerView extends Component {
             <UserProfileView user={this.props.user} />
           </div>
         </div>
-        <WorkerTableView workers={this.props.workers} />
+        <WorkerTableView
+          workers={this.props.workers}
+          onRowDelete={this.onRowDelete}
+        />
       </div>
     );
   }
@@ -40,7 +46,8 @@ const mapStateToProps = state => ({
   workers: workersSelectors.workersList(state)
 });
 const mapDispatchToProps = dispatch => ({
-  fetchWorkers: () => dispatch(workersActions.getAllWorkers())
+  fetchWorkers: () => dispatch(workersActions.getAllWorkers()),
+  deleteWorker: workerId => dispatch(workersActions.deleteWorker(workerId))
 });
 
 export default connect(

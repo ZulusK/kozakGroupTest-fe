@@ -4,8 +4,9 @@ export const requestStart = () => ({
   type: Types.REQUEST_START
 });
 
-export const requestSuccess = () => ({
-  type: Types.REQUEST_SUCCESS
+export const requestSuccess = message => ({
+  type: Types.REQUEST_SUCCESS,
+  payload: { message }
 });
 
 export const resetNotification = () => ({
@@ -16,7 +17,6 @@ const setError = message => ({
   type: Types.REQUEST_FAIL,
   payload: { error: message }
 });
-
 export const requestFail = error => dispatch => {
   if (error.response) {
     dispatch(setError(error.response.data));

@@ -7,7 +7,14 @@ import WorkersTableRow from '../../components/WorkersTableRow';
 class WorkersTableView extends Component {
   buildTableContent() {
     return this.props.workers.map((worker, i) => {
-      return <WorkersTableRow worker={worker} key={worker.id} index={i + 1} />;
+      return (
+        <WorkersTableRow
+          worker={worker}
+          key={worker.id}
+          index={i + 1}
+          onDeleteClick={this.props.onRowDelete}
+        />
+      );
     });
   }
   render() {
@@ -25,6 +32,7 @@ class WorkersTableView extends Component {
   }
 }
 WorkersTableView.propTypes = {
-  workers: PropTypes.array.isRequired
+  workers: PropTypes.array.isRequired,
+  onRowDelete: PropTypes.func
 };
 export default WorkersTableView;

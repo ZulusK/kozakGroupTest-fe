@@ -8,16 +8,22 @@ class WorkersTableView extends Component {
       return <p className="content">no contacts provided</p>;
     }
     return (
-      <p className="content">
+      <div className="content">
         {Object.entries(contacts).map(pair => (
-          <span>
+          <div key={pair[0]}>
             <b>{pair[0]}: </b>
             {pair[1]}
-          </span>
+          </div>
         ))}
-      </p>
+      </div>
     );
   }
+  _handleDeleteClick = e => {
+    e.preventDefault();
+    if (this.props.onDeleteClick) {
+      this.props.onDeleteClick(this.props.worker);
+    }
+  };
   render() {
     const { worker, index } = this.props;
     return (
@@ -29,12 +35,26 @@ class WorkersTableView extends Component {
         <td>{this.extractContacts()}</td>
         <td>{worker.salary}</td>
         <td>{new Date(worker.createdAt).toLocaleDateString()}</td>
+        {this.props.onDeleteClick && (
+          <td>
+            <a
+              class="button is-danger is-outlined"
+              onClick={this._handleDeleteClick}
+            >
+              <span>Delete</span>
+              <span class="icon is-small">
+                <i class="fas fa-times" />
+              </span>
+            </a>
+          </td>
+        )}
       </tr>
     );
   }
 }
 WorkersTableView.propTypes = {
   worker: PropTypes.object.isRequired,
-  index: PropTypes.number.isRequired
+  index: PropTypes.number.isRequired,
+  onDeleteClick: PropTypes.func.isRequired
 };
 export default WorkersTableView;

@@ -35,7 +35,10 @@ const withNotifications = WrappedComponent => {
     };
 
     componentDidUpdate(prevProps) {
-      if (this.props.notification !== prevProps.notification) {
+      if (
+        this.props.notification !== prevProps.notification &&
+        this.props.notification
+      ) {
         this.createNotification(
           this.props.notification.type || 'error',
           this.props.notification.message
