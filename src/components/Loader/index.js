@@ -5,8 +5,10 @@ class WrappedLoader extends Component {
   render() {
     if (this.props.isLoading) {
       return (
-        <div className="loader-container">
-          <div className="loader" />
+        <div className="loader-block">
+          <div className="loader-container">
+            <div className="loader-spin" />
+          </div>
         </div>
       );
     } else {

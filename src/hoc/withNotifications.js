@@ -7,6 +7,7 @@ import {
 } from '../reducers/notifications';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/scss/main.scss';
+import Loader from '../components/Loader';
 
 const withNotifications = WrappedComponent => {
   return class WithNotifications extends Component {
@@ -53,6 +54,7 @@ const withNotifications = WrappedComponent => {
       return (
         <div>
           <ToastContainer autoClose={2000} />
+          <Loader isLoading={this.state.isLoading} />
           <WrappedComponent {...this.props} />
         </div>
       );

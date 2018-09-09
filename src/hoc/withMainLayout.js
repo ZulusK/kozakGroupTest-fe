@@ -4,7 +4,6 @@ import Hero from 'react-bulma-components/lib/components/hero';
 import Container from 'react-bulma-components/lib/components/container';
 import Header from '../containers/Header';
 import withNotifications from './withNotifications';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const withMainLayout = WrappedComponent => {
