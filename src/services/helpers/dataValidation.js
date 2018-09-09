@@ -37,24 +37,29 @@ export const isPasswordSafe = value =>
     ? undefined
     : 'This password isn\'t safe. It should contain [a-z, A-Z, 0-9, and one of !,@,#,$,%,^,&,*]';
 
-export const mobileNumberValidation = [required, isMobileNumber];
+export const isValidSalary = value =>
+  value && value > 0 ? undefined : 'Salary must be greater than 0';
 
 export const isMobileNumber = value => {
-  const phone = phoneUtil.parseAndKeepRawInput(value, 'UA');
-  if (
-    !/^\+\d{1,3}\d{8,9}$/.test(value) ||
-    !(phoneUtil.isValidNumber(phone) && phoneUtil.isPossibleNumber(phone))
-  ) {
+  try {
+    const phone = phoneUtil.parseAndKeepRawInput(value, 'UA');
+    if (
+      !/^\+\d{1,3}\d{8,9}$/.test(value) ||
+      !(phoneUtil.isValidNumber(phone) && phoneUtil.isPossibleNumber(phone))
+    ) {
+      return 'Is not a valid phone number';
+    }
+  } catch (err) {
     return 'Is not a valid phone number';
   }
-  return phoneUtil.format(phone, PNF.E164);
 };
 export const fullnameValidation = [
+  required,
   isValidName,
   isMinLength(2),
   isMaxLength(20)
 ];
-
+export const positionValidation = [required, isMinLength(2), isMaxLength(40)];
 export const emailValidation = [required, isValidEmail];
 
 export const passwordValidation = [
@@ -69,10 +74,8 @@ export const signinPasswordValidation = [
   isMinLength(8),
   isMaxLength(20)
 ];
+export const salaryValidation = [required, isValidSalary];
 
-export default {
-  mobileNumberValidation,
-  fullnameValidation,
-  emailValidation,
-  passwordValidation
-};
+export const mobileNumberValidation = [required, isMobileNumber];
+
+export const genderValidation = [required];

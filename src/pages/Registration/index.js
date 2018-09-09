@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import * as authSelectors from '../../reducers/auth/selectors';
 import * as authActions from '../../reducers/auth/actions';
 import withMainLayout from '../../hoc/withMainLayout';
-import validation from '../../services/helpers/dataValidation';
+import * as validation from '../../services/helpers/dataValidation';
 import FormInput from '../../components/FormInput';
 import withUnauthorizedRequired from '../../hoc/withUnauthorizedRequired';
 

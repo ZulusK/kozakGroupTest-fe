@@ -21,7 +21,7 @@ class WorkerView extends Component {
   render() {
     return (
       <div>
-        <a class="button is-info" onClick={this.onButtonRefreshClick}>
+        <a className="button is-info" onClick={this.onButtonRefreshClick}>
           Reload
         </a>
         <div className="columns is-tablet">

@@ -26,7 +26,7 @@ const withMainLayout = WrappedComponent => {
   };
 };
 const hoc = compose(
-  withMainLayout,
-  withNotifications
+  withNotifications,
+  withMainLayout
 );
 export default hoc;

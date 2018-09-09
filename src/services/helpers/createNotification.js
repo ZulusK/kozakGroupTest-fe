@@ -1,18 +1,3 @@
-import { Toast } from 'native-base';
-import toCapitalize from '/services/helpers/toCapitalize';
-
-/**
- * Renders notification using Toast component from `native-base`
- * @param {string} text - Text which will be shown in notification
- */
-export const throwNotification = text => {
-  Toast.show({
-    text,
-    buttonText: 'OK',
-    duration: 5000
-  });
-};
-
 /**
  * Handles errors with array format
  * @param {object} error - Object with `message` key and value as an array of objects with `field` and `message` properties.
@@ -26,7 +11,7 @@ const formatNotification = error => {
     case field === 'mobileNumber':
       return `Mobile number field: ${message}`;
     default:
-      return `${toCapitalize(field)} field: ${message}`;
+      return `${field.toUpper()} field: ${message}`;
   }
 };
 
@@ -34,21 +19,17 @@ const formatNotification = error => {
  * Handles errors with different formats and extract error messages for notifications.
  * @param {object or string} error - Error which will be shown in notification.
  */
-export const notify = error => {
+export const formatError = error => {
   switch (true) {
-    case error === 'Location request timed out':
-      throwNotification(`${error}. Please enter your address.`);
-      break;
     case typeof error === 'string':
-      throwNotification(error);
-      break;
+      return error;
     case error.hasOwnProperty('message') && typeof error.message === 'string':
-      throwNotification(error.message);
+      return error.message;
       break;
     case typeof error.message === 'object' && error.message.length > 0:
-      throwNotification(formatNotification(error));
+      return formatNotification(error);
       break;
     default:
-      throwNotification('Sorry, something went wrong...');
+      return 'Sorry, something went wrong...';
   }
 };

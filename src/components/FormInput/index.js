@@ -16,7 +16,7 @@ class FormInput extends Component {
     }));
   };
   _getStyleAccordingToState = () => {
-    if (!this.props.meta.touched) {
+    if (!this.props.meta.visited) {
       return '';
     }
     if (this.props.meta.error) {
@@ -35,26 +35,50 @@ class FormInput extends Component {
   _getHelpStyle = () => {
     return 'help ' + this._getStyleAccordingToState();
   };
-
+  getTextarea = () => {
+    const { input, type, rows } = this.props;
+    return (
+      <textarea
+        className={this._getInputStyle()}
+        type={type}
+        placeholder={this.props.placeholder}
+        onChange={input.onChange}
+        rows={rows}
+        {...input}
+      />
+    );
+  };
+  getInput = () => {
+    const { input, type } = this.props;
+    return (
+      <input
+        className={this._getInputStyle()}
+        type={type}
+        placeholder={this.props.placeholder}
+        onChange={input.onChange}
+        {...input}
+      />
+    );
+  };
+  getInputByType = () => {
+    switch (this.props.type) {
+      case 'textarea':
+        return this.getTextarea();
+      case 'text':
+      case 'radio':
+      default:
+        return this.getInput();
+    }
+  };
   render() {
     const {
-      input,
       label,
-      type,
       meta: { error, warning }
     } = this.props;
     return (
       <div className="field">
         <label className="label">{label}</label>
-        <div className="control">
-          <input
-            className={this._getInputStyle()}
-            type={type}
-            placeholder={this.props.placeholder}
-            onChange={input.onChange}
-            {...input}
-          />
-        </div>
+        <div className="control">{this.getInputByType()}</div>
         <p className={this._getHelpStyle()}>{error || warning}</p>
       </div>
     );

@@ -19,11 +19,16 @@ const withNotifications = WrappedComponent => {
       }
       switch (type) {
         case 'error':
-        case 'info':
           toast.error(msg, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 15000
+          });
+          break;
+        case 'info':
+        default:
+          toast.info(msg, {
             position: toast.POSITION.TOP_CENTER
           });
-        default:
           break;
       }
     };
@@ -36,7 +41,7 @@ const withNotifications = WrappedComponent => {
         );
       }
 
-      if (this.props.loading !== prevProps.loading) {
+      if (this.props.loading !== this.state.isLoading) {
         this._onToggleLoadingState();
       }
     }

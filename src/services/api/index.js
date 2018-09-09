@@ -10,35 +10,41 @@ const getTokens = () => store.getState().auth.tokens;
 
 const validateTokens = tokens => {
   if (tokens.access !== null && tokens.refresh !== null) {
-    if (tokens.access.expiredIn < Date.now()) {
+    if (tokens.access.expiredIn * 1000 > new Date().getTime()) {
       return Promise.resolve(tokens.access.token);
-    } else {
-      if (tokens.refresh.expiredIn < Date.now()) {
-        return getAccessToken(tokens.refresh.token)
-          .then(response => {
-            store.dispatch(authActions.setNewAccessToken(response.data));
-            return response.data.token;
-          })
-          .catch(error => {
-            store.dispatch(notificationsActions.requestFail(error));
-          });
-      }
+    }
+    if (tokens.refresh.expiredIn * 1000 > new Date().getTime()) {
+      return getAccessToken(tokens.refresh.token)
+        .then(response => {
+          console.log(3);
+          store.dispatch(authActions.setNewAccessToken(response.data));
+          return response.data.token;
+        })
+        .catch(error => {
+          store.dispatch(notificationsActions.requestFail(error));
+          store.dispatch(authActions.logout());
+          return null;
+        });
     }
   }
+  store.dispatch(authActions.logout());
+  return Promise.resolve(null);
 };
 
 const authRequest = (url, options = {}) => {
   const tokens = getTokens();
   return validateTokens(tokens)
     .then(accessToken => {
-      return axios({
-        ...options,
-        url,
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          ...options.headers
-        }
-      });
+      if (accessToken !== null) {
+        return axios({
+          ...options,
+          url,
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            ...options.headers
+          }
+        });
+      }
     })
     .catch(error => {
       store.dispatch(notificationsActions.requestFail(error));
