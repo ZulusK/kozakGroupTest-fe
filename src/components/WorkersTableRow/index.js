@@ -38,12 +38,12 @@ class WorkersTableView extends Component {
         {this.props.onDeleteClick && (
           <td>
             <a
-              class="button is-danger is-outlined"
+              className="button is-danger is-outlined"
               onClick={this._handleDeleteClick}
             >
               <span>Delete</span>
-              <span class="icon is-small">
-                <i class="fas fa-times" />
+              <span className="icon is-small">
+                <i className="fas fa-times" />
               </span>
             </a>
           </td>

@@ -9,33 +9,35 @@ import {
   actions as workersActions
 } from '../../reducers/workers';
 import WorkerTableView from '../../containers/WorkerTableView';
+import WorkersTablePagination from '../../containers/WorkersTablePagination';
 
 class WorkerView extends Component {
   onButtonRefreshClick = e => {
     e.preventDefault();
     this.props.fetchWorkers();
   };
-  componentDidMount = () => {
-    this.props.fetchWorkers();
-  };
+  // componentDidMount = () => {
+  //   this.props.fetchWorkers();
+  // };
   onRowDelete = worker => {
     this.props.deleteWorker(worker.id);
   };
   render() {
     return (
       <div>
-        <a className="button is-info" onClick={this.onButtonRefreshClick}>
-          Reload
-        </a>
         <div className="columns is-tablet">
           <div className="column is-6-desktop is-offset-3-desktop">
             <UserProfileView user={this.props.user} />
           </div>
         </div>
+        <a className="button is-info" onClick={this.onButtonRefreshClick}>
+          Reload
+        </a>
         <WorkerTableView
           workers={this.props.workers}
           onRowDelete={this.onRowDelete}
         />
+        <WorkersTablePagination onSetCurrentPage={this.props.fetchWorkers} />
       </div>
     );
   }

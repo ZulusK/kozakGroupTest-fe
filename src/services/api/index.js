@@ -5,6 +5,7 @@ import base64 from 'base-64';
 import { actions as authActions } from '../../reducers/auth';
 import { actions as notificationsActions } from '../../reducers/notifications';
 import { makeFormData } from '../helpers/dataBuilder';
+import queryString from 'query-string';
 
 const getTokens = () => store.getState().auth.tokens;
 
@@ -100,10 +101,15 @@ export const getAccessToken = refreshToken =>
   });
 
 // WORKERS
-export const getAllWorkers = () =>
-  authRequest(ApiAddresses.GET_WORKERS, {
-    method: 'GET'
-  });
+export const getAllWorkers = (query = {}) => {
+  console.log(ApiAddresses.GET_WORKERS + '?' + queryString.stringify(query));
+  return authRequest(
+    ApiAddresses.GET_WORKERS + '?' + queryString.stringify(query),
+    {
+      method: 'GET'
+    }
+  );
+};
 
 export const createWorker = data =>
   authRequest(ApiAddresses.POST_WORKER, {

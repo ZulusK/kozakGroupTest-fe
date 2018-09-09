@@ -1,11 +1,16 @@
 import Types from './types';
 import * as notificationsActions from '../notifications/actions';
+import * as workersSelectors from './selectors';
 import * as API from '../../services/api';
-import { makeFormData } from '../../services/helpers/dataBuilder';
 
-export const getAllWorkers = () => dispatch => {
+export const getAllWorkers = () => (dispatch, getState) => {
   dispatch(notificationsActions.requestStart());
-  API.getAllWorkers()
+  const state = getState();
+  API.getAllWorkers({
+    skip:
+      workersSelectors.getLimit(state) * workersSelectors.getCurrentPage(state),
+    limit: workersSelectors.getLimit(state)
+  })
     .then(response => {
       dispatch({
         type: Types.GET_WORKERS_SUCCESS,
@@ -17,7 +22,24 @@ export const getAllWorkers = () => dispatch => {
       dispatch(notificationsActions.requestFail(error));
     });
 };
-
+export const setPageCount = pageCount => dispatch => {
+  dispatch({
+    type: Types.SET_WORKERS_PAGE_COUNT,
+    payload: { pageCount }
+  });
+};
+export const setCurrentPage = page => dispatch => {
+  dispatch({
+    type: Types.SET_CURRENT_WORKERS_PAGE,
+    payload: { page }
+  });
+};
+export const setLimit = limit => dispatch => {
+  dispatch({
+    type: Types.SET_CURRENT_WORKERS_LIMIT,
+    payload: { limit }
+  });
+};
 export const deleteWorker = workerId => dispatch => {
   dispatch(notificationsActions.requestStart());
 
