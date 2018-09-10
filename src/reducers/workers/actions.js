@@ -2,6 +2,7 @@ import Types from './types';
 import * as notificationsActions from '../notifications/actions';
 import * as workersSelectors from './selectors';
 import * as API from '../../services/api';
+import * as filterBuilder from '../../services/helpers/filterBuilder';
 
 export const getAllWorkers = () => (dispatch, getState) => {
   dispatch(notificationsActions.requestStart());
@@ -9,7 +10,8 @@ export const getAllWorkers = () => (dispatch, getState) => {
   API.getAllWorkers({
     skip:
       workersSelectors.getLimit(state) * workersSelectors.getCurrentPage(state),
-    limit: workersSelectors.getLimit(state)
+    limit: workersSelectors.getLimit(state),
+    ...filterBuilder.buildForWorkers(workersSelectors.getFilters(state))
   })
     .then(response => {
       dispatch({
@@ -38,6 +40,17 @@ export const setLimit = limit => dispatch => {
   dispatch({
     type: Types.SET_CURRENT_WORKERS_LIMIT,
     payload: { limit }
+  });
+};
+export const updateFilters = filters => dispatch => {
+  dispatch({
+    type: Types.UPDATE_FILTERS,
+    payload: { filters }
+  });
+};
+export const resetPagination = () => dispatch => {
+  dispatch({
+    type: Types.RESET_PAGINATION
   });
 };
 export const deleteWorker = workerId => dispatch => {

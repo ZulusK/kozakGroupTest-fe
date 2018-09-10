@@ -3,6 +3,10 @@ import Types from './types';
 import _ from 'lodash';
 const initialState = {
   workers: [],
+  filters: {
+    fullname: '',
+    position: ''
+  },
   pagination: {
     limit: 10,
     page: 0,
@@ -49,6 +53,14 @@ export default createReducer(initialState, {
       ...state.pagination,
       limit: payload.limit
     }
+  }),
+  [Types.UPDATE_FILTERS]: (state, { payload }) => ({
+    ...state,
+    filters: payload.filters
+  }),
+  [Types.RESET_FILTERS]: state => ({
+    ...state,
+    filters: initialState.filters
   }),
   [Types.RESET_WORKERS_PAGINATION]: (state, { payload }) => ({
     ...state,

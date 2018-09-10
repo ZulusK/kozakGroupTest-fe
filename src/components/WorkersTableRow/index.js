@@ -33,7 +33,7 @@ class WorkersTableView extends Component {
         <td>{worker.gender}</td>
         <td>{worker.position}</td>
         <td>{this.extractContacts()}</td>
-        <td>{worker.salary}</td>
+        <td>{worker.salary} $</td>
         <td>{new Date(worker.createdAt).toLocaleDateString()}</td>
         {this.props.onDeleteClick && (
           <td>

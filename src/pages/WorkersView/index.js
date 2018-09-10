@@ -10,15 +10,12 @@ import {
 } from '../../reducers/workers';
 import WorkerTableView from '../../containers/WorkerTableView';
 import WorkersTablePagination from '../../containers/WorkersTablePagination';
-
+import WorkerFilterArea from '../../containers/WorkerFilterArea';
 class WorkerView extends Component {
   onButtonRefreshClick = e => {
     e.preventDefault();
     this.props.fetchWorkers();
   };
-  // componentDidMount = () => {
-  //   this.props.fetchWorkers();
-  // };
   onRowDelete = worker => {
     this.props.deleteWorker(worker.id);
   };
@@ -33,6 +30,7 @@ class WorkerView extends Component {
         <a className="button is-info" onClick={this.onButtonRefreshClick}>
           Reload
         </a>
+        <WorkerFilterArea onAnyFilterUpdate={this.props.fetchWorkers} />
         <WorkerTableView
           workers={this.props.workers}
           onRowDelete={this.onRowDelete}

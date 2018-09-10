@@ -5,6 +5,10 @@ const pagination = createSelector(
   workers,
   workersState => workersState.pagination
 );
+const filters = createSelector(workers, workersState => workersState.filters);
+
+export const getFilters = filters;
+
 export const workersList = createSelector(
   workers,
   workersState => workersState.workers
