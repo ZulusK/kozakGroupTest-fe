@@ -1,10 +1,20 @@
 import createTypes from '../../services/helpers/createTypes';
 
 export default createTypes(`    
+    WORKER_CREATION_START
     WORKER_CREATION_SUCCESS
 
     GET_WORKERS_SUCCESS        
 
     SELECT_WORKER
     RESET_SELECTED_WORKER
+
+    SET_CURRENT_WORKERS_PAGE
+    SET_WORKERS_PAGE_COUNT
+    SET_CURRENT_WORKERS_LIMIT
+    RESET_WORKERS_PAGINATION
+
+    UPDATE_FILTERS
+    RESET_FILTERS
+    RESET_PAGINATION
 `);

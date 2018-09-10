@@ -35,7 +35,6 @@ export const signin = userData => dispatch => {
       dispatch(notificationsActions.requestSuccess());
     })
     .catch(error => {
-      dispatch({ type: Types.SIGN_IN_FAIL });
       dispatch(notificationsActions.requestFail(error));
     });
 };
@@ -57,7 +56,6 @@ export const signup = userData => dispatch => {
       dispatch(notificationsActions.requestSuccess());
     })
     .catch(error => {
-      dispatch({ type: Types.SIGN_UP_FAIL });
       dispatch(notificationsActions.requestFail(error));
     });
 };

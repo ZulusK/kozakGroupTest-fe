@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { compose } from 'redux';
 import Hero from 'react-bulma-components/lib/components/hero';
 import Container from 'react-bulma-components/lib/components/container';
 import Header from '../containers/Header';
+import withNotifications from './withNotifications';
+import 'react-toastify/dist/ReactToastify.css';
 
 const withMainLayout = WrappedComponent => {
   return class extends Component {
@@ -9,7 +12,6 @@ const withMainLayout = WrappedComponent => {
       return (
         <div>
           <Header />
-
           <Hero color="white" size="fullheight">
             <Hero.Body>
               <Container>
@@ -22,5 +24,8 @@ const withMainLayout = WrappedComponent => {
     }
   };
 };
-
-export default withMainLayout;
+const hoc = compose(
+  withNotifications,
+  withMainLayout
+);
+export default hoc;

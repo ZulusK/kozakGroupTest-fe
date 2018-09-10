@@ -3,7 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import thunk from 'redux-thunk';
 import { name, version } from '../../package.json';
 import rootReducer from '../reducers';
-import { persistReducer, persistStore } from 'redux-persist';
+import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 const persistConfig = {
@@ -18,7 +18,15 @@ export default function configureStore(initialState) {
   const composeEnhancers = composeWithDevTools({
     name: `${name}@${version}`
   });
-  const enhancer = composeEnhancers(applyMiddleware(...middleware));
+  let enhancer;
+  if (
+    process.env.NODE_ENV !== 'production' &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  ) {
+    enhancer = composeEnhancers(applyMiddleware(...middleware));
+  } else {
+    enhancer = applyMiddleware(...middleware);
+  }
 
   const store = createStore(persistedReducer, initialState, enhancer);
   // Hot reload reducers (requires Webpack or Browserify HMR to be enabled)
@@ -28,6 +36,5 @@ export default function configureStore(initialState) {
       store.replaceReducer(require('../reducers').default)
     );
   }
-  persistStore(store);
   return store;
 }

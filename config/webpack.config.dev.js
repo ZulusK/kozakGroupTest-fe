@@ -87,7 +87,8 @@ module.exports = {
     alias: {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
-      'react-native': 'react-native-web'
+      'react-native': 'react-native-web',
+      '_variables.sass': path.resolve(__dirname, '../src/scss/resources.scss')
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).
@@ -95,7 +96,7 @@ module.exports = {
       // To fix this, we prevent you from importing files out of src/ -- if you'd like to,
       // please link the files into your node_modules/ and let module-resolution kick in.
       // Make sure your source files are compiled, as they will not be processed in any way.
-      new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson])
+      // new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson])
     ]
   },
   module: {
@@ -191,31 +192,12 @@ module.exports = {
             })
           },
           {
-            test: /\.scss$/,
-            use: ExtractTextPlugin.extract({
-              fallback: 'style-loader',
-              use: [
-                {
-                  loader: 'css-loader',
-                  options: {
-                    modules: true,
-                    sourceMap: true,
-                    importLoaders: 2,
-                    localIdentName: '[name]__[local]__[hash:base64:5]'
-                  }
-                },
-                'sass-loader',
-                {
-                  loader: 'sass-resources-loader',
-                  options: {
-                    // Provide path to the file with resources
-                    resources: './src/scss/resources.scss'
-                    // Or array of paths
-                    // resources: ['./path/to/vars.scss', './path/to/mixins.scss']
-                  }
-                }
-              ]
-            })
+            test: /\.(scss|sass)$/,
+            loader: [
+              require.resolve('style-loader'),
+              require.resolve('css-loader'),
+              require.resolve('sass-loader')
+            ]
           },
           // "file" loader makes sure those assets get served by WebpackDevServer.
           // When you `import` an asset, you get its (virtual) filename.

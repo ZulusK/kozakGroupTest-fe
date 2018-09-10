@@ -4,41 +4,46 @@ import store from '../../store';
 import base64 from 'base-64';
 import { actions as authActions } from '../../reducers/auth';
 import { actions as notificationsActions } from '../../reducers/notifications';
-import { makeFormData } from '../helpers/dataBuilder';
+import queryString from 'query-string';
 
 const getTokens = () => store.getState().auth.tokens;
 
 const validateTokens = tokens => {
   if (tokens.access !== null && tokens.refresh !== null) {
-    if (tokens.access.expiredIn < Date.now()) {
+    if (tokens.access.expiredIn * 1000 > new Date().getTime()) {
       return Promise.resolve(tokens.access.token);
-    } else {
-      if (tokens.refresh.expiredIn < Date.now()) {
-        return getAccessToken(tokens.refresh.token)
-          .then(response => {
-            store.dispatch(authActions.setNewAccessToken(response.data));
-            return response.data.token;
-          })
-          .catch(error => {
-            store.dispatch(notificationsActions.requestFail(error));
-          });
-      }
+    }
+    if (tokens.refresh.expiredIn * 1000 > new Date().getTime()) {
+      return getAccessToken(tokens.refresh.token)
+        .then(response => {
+          store.dispatch(authActions.setNewAccessToken(response.data));
+          return response.data.token;
+        })
+        .catch(error => {
+          store.dispatch(notificationsActions.requestFail(error));
+          store.dispatch(authActions.logout());
+          return null;
+        });
     }
   }
+  store.dispatch(authActions.logout());
+  return Promise.resolve(null);
 };
 
 const authRequest = (url, options = {}) => {
   const tokens = getTokens();
   return validateTokens(tokens)
     .then(accessToken => {
-      return axios({
-        ...options,
-        url,
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          ...options.headers
-        }
-      });
+      if (accessToken !== null) {
+        return axios({
+          ...options,
+          url,
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            ...options.headers
+          }
+        });
+      }
     })
     .catch(error => {
       store.dispatch(notificationsActions.requestFail(error));
@@ -94,7 +99,14 @@ export const getAccessToken = refreshToken =>
   });
 
 // WORKERS
-export const getAllWorkers = () => axios.get(ApiAddresses.GET_WORKERS);
+export const getAllWorkers = (query = {}) => {
+  return authRequest(
+    ApiAddresses.LIST_WORKERS + '?' + queryString.stringify(query),
+    {
+      method: 'GET'
+    }
+  );
+};
 
 export const createWorker = data =>
   authRequest(ApiAddresses.POST_WORKER, {
@@ -102,18 +114,18 @@ export const createWorker = data =>
     method: 'POST'
   });
 
-export const deleteWorker = (workerId, email, password) =>
-  axios({
-    url: ApiAddresses.DELETE_WORKER(workerId),
-    headers: {
-      Authorization: `Basic ${base64.encode(`${email}:${password}`)}`
-    },
-    method: 'PUT',
-    data: makeFormData({ isActive: false })
+export const deleteWorker = workerId =>
+  authRequest(ApiAddresses.DELETE_WORKER(workerId), {
+    method: 'DELETE'
   });
 
 export const updateWorker = (workerId, data) =>
   authRequest(ApiAddresses.UPDATE_WORKER(workerId), {
     data,
     method: 'PUT'
+  });
+
+export const fetchWorker = workerId =>
+  authRequest(ApiAddresses.GET_WORKER(workerId), {
+    method: 'GET'
   });

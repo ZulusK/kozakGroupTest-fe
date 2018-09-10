@@ -5,45 +5,47 @@ import {
   selectors as notificationsSelectors,
   actions as notificationsActions
 } from '../reducers/notifications';
-import 'react-notifications/lib/notifications.css';
-import {
-  NotificationContainer,
-  NotificationManager
-} from 'react-notifications';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/scss/main.scss';
+import Loader from '../components/Loader';
 
 const withNotifications = WrappedComponent => {
-  return class extends Component {
+  return class WithNotifications extends Component {
     state = {
       isLoading: false
     };
     createNotification = (type, msg) => {
-      if (!msg) {return;}
+      if (!msg) {
+        return;
+      }
       switch (type) {
-        case 'info':
-          NotificationManager.info(msg, 'Info', 3000);
-          break;
-        case 'success':
-          NotificationManager.success(msg, 'Success', 3000);
-          break;
-        case 'warning':
-          NotificationManager.warning(msg, 'Warning', 3000);
-          break;
         case 'error':
+          toast.error(msg, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 15000
+          });
+          break;
+        case 'info':
         default:
-          NotificationManager.error(msg, 'Error!', 5000);
+          toast.info(msg, {
+            position: toast.POSITION.TOP_CENTER
+          });
           break;
       }
     };
 
     componentDidUpdate(prevProps) {
-      if (this.props.notification) {
+      if (
+        this.props.notification !== prevProps.notification &&
+        this.props.notification
+      ) {
         this.createNotification(
           this.props.notification.type || 'error',
           this.props.notification.message
         );
       }
 
-      if (this.props.loading !== prevProps.loading) {
+      if (this.props.loading !== this.state.isLoading) {
         this._onToggleLoadingState();
       }
     }
@@ -51,13 +53,12 @@ const withNotifications = WrappedComponent => {
     _onToggleLoadingState = () => {
       this.setState({ isLoading: this.props.loading });
     };
-
     render() {
       return (
         <div>
-          <h1>{this.state.isLoading}</h1>
+          <ToastContainer autoClose={2000} />
+          <Loader isLoading={this.state.isLoading} />
           <WrappedComponent {...this.props} />
-          <NotificationContainer />
         </div>
       );
     }
@@ -75,7 +76,7 @@ const mapDispatchToProps = dispatch => ({
   requestFail: error => dispatch(notificationsActions.requestFail(error))
 });
 
-const composedHoc = compose(
+let composedHoc = compose(
   connect(
     mapStateToProps,
     mapDispatchToProps

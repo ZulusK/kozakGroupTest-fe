@@ -13,9 +13,9 @@ export default {
   CHECK_ACCESS: `${API_URL}${API_PATH}/auth/check-access`,
   GET_ACCESS_TOKEN: `${API_URL}${API_PATH}/auth/token`,
 
-  GET_WORKERS: `${API_URL}${API_PATH}/workers`,
   POST_WORKER: `${API_URL}${API_PATH}/workers`,
+  LIST_WORKERS: `${API_URL}${API_PATH}/workers`,
   DELETE_WORKER: workerId => `${API_URL}${API_PATH}/workers/${workerId}`,
-  UPDATE_WORKER: workerId => `${API_URL}${API_PATH}/workers/${workerId}`,
-  LIST_WORKERS: `${API_URL}${API_PATH}/workers`
+  GET_WORKER: workerId => `${API_URL}${API_PATH}/workers/${workerId}`,
+  UPDATE_WORKER: workerId => `${API_URL}${API_PATH}/workers/${workerId}`
 };
