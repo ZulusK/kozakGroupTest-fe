@@ -19,6 +19,10 @@ export default [
     component: pages.Registration
   },
   {
+    path: '/workers/:id',
+    component: pages.WorkerUpdating
+  },
+  {
     component: pages.NotFound
   }
 ];

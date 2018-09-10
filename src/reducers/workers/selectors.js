@@ -9,6 +9,10 @@ const filters = createSelector(workers, workersState => workersState.filters);
 
 export const getFilters = filters;
 
+export const getSelectedWorker = createSelector(
+  workers,
+  workersState => workersState.selectedWorker
+);
 export const workersList = createSelector(
   workers,
   workersState => workersState.workers

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class WorkersTableView extends Component {
   extractContacts() {
@@ -35,13 +36,21 @@ class WorkersTableView extends Component {
         <td>{this.extractContacts()}</td>
         <td>{worker.salary} $</td>
         <td>{new Date(worker.createdAt).toLocaleDateString()}</td>
+        <td>
+          <Link to={`/workers/${worker.id}`}>
+            <span className="button is-black is-outlined">
+              <span className="icon is-small">
+                <i className="fas fa-pen" />
+              </span>
+            </span>
+          </Link>
+        </td>
         {this.props.onDeleteClick && (
           <td>
             <a
               className="button is-danger is-outlined"
               onClick={this._handleDeleteClick}
             >
-              <span>Delete</span>
               <span className="icon is-small">
                 <i className="fas fa-times" />
               </span>

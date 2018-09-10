@@ -21,7 +21,6 @@ class NotFound extends Component {
             <Media>
               <Media.Item renderAs="figure" position="left">
                 <Image
-                  renderAs="p"
                   size={64}
                   alt="Batman"
                   src="https://massolutions.biz/wp-content/uploads/2014/12/e5a06942fa42823c88be5f3a834e063d-fantastic-art-bat-family.jpg"

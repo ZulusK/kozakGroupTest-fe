@@ -4,7 +4,6 @@ import store from '../../store';
 import base64 from 'base-64';
 import { actions as authActions } from '../../reducers/auth';
 import { actions as notificationsActions } from '../../reducers/notifications';
-import { makeFormData } from '../helpers/dataBuilder';
 import queryString from 'query-string';
 
 const getTokens = () => store.getState().auth.tokens;
@@ -17,7 +16,6 @@ const validateTokens = tokens => {
     if (tokens.refresh.expiredIn * 1000 > new Date().getTime()) {
       return getAccessToken(tokens.refresh.token)
         .then(response => {
-          console.log(3);
           store.dispatch(authActions.setNewAccessToken(response.data));
           return response.data.token;
         })
@@ -102,9 +100,8 @@ export const getAccessToken = refreshToken =>
 
 // WORKERS
 export const getAllWorkers = (query = {}) => {
-  console.log(ApiAddresses.GET_WORKERS + '?' + queryString.stringify(query));
   return authRequest(
-    ApiAddresses.GET_WORKERS + '?' + queryString.stringify(query),
+    ApiAddresses.LIST_WORKERS + '?' + queryString.stringify(query),
     {
       method: 'GET'
     }
@@ -126,4 +123,9 @@ export const updateWorker = (workerId, data) =>
   authRequest(ApiAddresses.UPDATE_WORKER(workerId), {
     data,
     method: 'PUT'
+  });
+
+export const fetchWorker = workerId =>
+  authRequest(ApiAddresses.GET_WORKER(workerId), {
+    method: 'GET'
   });

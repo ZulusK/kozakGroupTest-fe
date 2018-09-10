@@ -65,14 +65,11 @@ export const deleteWorker = workerId => dispatch => {
       dispatch(notificationsActions.requestFail(error));
     });
 };
-
 export const createWorker = workerData => dispatch => {
   dispatch({ type: Types.WORKER_CREATION_START });
   dispatch(notificationsActions.requestStart());
-
-  // const formData = makeFormData(workerData);
   API.createWorker(workerData)
-    .then(response => {
+    .then(() => {
       dispatch({
         type: Types.WORKER_CREATION_SUCCESS
       });
@@ -80,6 +77,34 @@ export const createWorker = workerData => dispatch => {
     })
     .catch(error => {
       dispatch({ type: Types.WORKER_CREATION_FAIL });
+      dispatch(notificationsActions.requestFail(error));
+    });
+};
+export const updateWorker = (workerId, workerData) => dispatch => {
+  dispatch(notificationsActions.requestStart());
+  console.log(workerData, 2);
+  API.updateWorker(workerId, workerData)
+    .then(() => {
+      dispatch(notificationsActions.requestSuccess('worker was updated'));
+    })
+    .catch(error => {
+      dispatch(notificationsActions.requestFail(error));
+    });
+};
+export const selectWorker = worker => dispatch => {
+  dispatch({
+    type: Types.SELECT_WORKER,
+    payload: { worker }
+  });
+};
+export const fetchWorker = workerId => dispatch => {
+  dispatch(notificationsActions.requestStart());
+  API.fetchWorker(workerId)
+    .then(response => {
+      dispatch(selectWorker(response.data));
+      dispatch(notificationsActions.requestSuccess());
+    })
+    .catch(error => {
       dispatch(notificationsActions.requestFail(error));
     });
 };

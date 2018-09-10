@@ -15,6 +15,8 @@ class TableColumnsTitles extends Component {
         <th>Contacts</th>
         <th>Salary</th>
         <th>Created at</th>
+        <th>Edit</th>
+        <th>Delete</th>
       </tr>
     );
   }

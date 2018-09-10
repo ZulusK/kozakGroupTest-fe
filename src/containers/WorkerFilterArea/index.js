@@ -17,7 +17,6 @@ class WorkerFilterArea extends Component {
   };
   handleFilterEntered = () => {
     this.props.updateFilters(this.state.filters);
-    console.log(123);
     this.props.onAnyFilterUpdate();
     this.props.resetPagination();
   };
